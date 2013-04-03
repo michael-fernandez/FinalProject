@@ -1,6 +1,7 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -10,9 +11,15 @@ import com.jme3.scene.shape.Box;
 
 /**
  * test
- * @author normenhansen
+ *
+ * @author Mike Jake and Dave
  */
 public class Main extends SimpleApplication {
+
+    KinectInterface kinect;
+    KinectSkeleton kinectskeleton;
+    BulletAppState bulletAppState;
+    Mocap moCap;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -21,6 +28,13 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
+        kinectskeleton = new KinectSkeleton(this);
+        kinect = new KinectInterface(this);
+
+        bulletAppState = new BulletAppState();
+        stateManager.attach(bulletAppState);
+
+        moCap = new Mocap();
         Box b = new Box(Vector3f.ZERO, 1, 1, 1);
         Geometry geom = new Geometry("Box", b);
 
